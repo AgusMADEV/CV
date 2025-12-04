@@ -6,14 +6,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://static.evo-luciona.es/fuentes/ClashDisplay/ClashDisplay.css" rel="stylesheet">
   <style>
-    @font-face {
-      font-family: 'ClashDisplay';
-      src: url('assets/fonts/ClashDisplay-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
 
     /* ---------- Configuración de página para PDF ---------- */
     @page {
@@ -50,7 +44,7 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family:'Inter', 'ClashDisplay',system-ui,  -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg-soft);
       color: var(--text);
       line-height: 1.6;
@@ -63,29 +57,24 @@
 
     /* ---------- Grid de fondo ---------- */
     #site-grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.08;
+      position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.08;
+      contain: layout style paint; /* Aislar repaints */
+      will-change: opacity; /* GPU acceleration */
     }
 
     #site-grid-bg .grid-svg {
       width: 100%;
       height: 100%;
       display: block;
-      color: rgba(0, 0, 0, 0.3);
+      color: rgba(0, 0, 0, .30);
     }
 
-    .bg-vignette {
-      position: fixed;
-      inset: -20%;
-      z-index: -1;
-      pointer-events: none;
+    .bg-vignette{
+      position:fixed; inset:-20%; z-index:-1; pointer-events:none;
+      contain: layout style paint;
+      /* Removido filter:saturate que fuerza repaints pesados */
       background:
-        radial-gradient(1200px 600px at 50% 0%, rgba(174, 46, 51, 0.12), transparent 40%),
-        radial-gradient(900px 500px at 70% 20%, rgba(0, 163, 152, 0.08), transparent 45%),
-        radial-gradient(1200px 800px at 50% 120%, rgba(0, 0, 0, 0.18), transparent 50%);
+        radial-gradient(1200px 600px at 50% 0%, rgba(255, 255, 255, 0.1), transparent 40%), radial-gradient(900px 500px at 70% 20%, rgb(0 163 152 / 5%), transparent 45%), radial-gradient(1200px 800px at 50% 120%, rgba(0, 0, 0, .18), transparent 50%)
     }
 
     .cv {
@@ -129,10 +118,9 @@
     h1 {
       font-family: 'ClashDisplay', 'Inter', sans-serif;
       font-size: 36px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-      background: linear-gradient(135deg, var(--text) 0%, var(--morado) 100%);
+      font-weight: 800;
+      margin-bottom: -10px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--morado)30%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -182,7 +170,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
       margin-bottom: 36px;
       padding-bottom: 24px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
@@ -195,12 +182,11 @@
     }
 
     .profile-photo {
-      width: 110px;
-      height: 110px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       background-size: cover;
-      background-position: center;
-      background-image: url('tu-foto.jpg');
+      background-image: url('perfil.png');
       position: relative;
       box-shadow: 
         0 10px 30px rgba(0, 0, 0, 0.12),
@@ -225,28 +211,29 @@
     .headline {
       display: flex;
       flex-direction: column;
-      gap: 4px;
     }
 
     .headline-subtitle {
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 15px;
+      letter-spacing: 0.35em;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .header-right {
       text-align: right;
+      padding-top: 60px;
       font-size: 13px;
       color: var(--muted);
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-
+    .header-right p {
+      font-size: 13px;
+    }
     .header-right a {
-      color: var(--morado);
+      color: var(--accentColor);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s ease;
@@ -363,12 +350,16 @@
       position: absolute;
       left: 0;
       top: 0;
-      bottom: 88%;
+      bottom: 80%;
       width: 2px;
       background: var(--accentColor);
     }
+    #block-experience::before{
+      content: "";
+      bottom: 90%;
+    }
     .block:hover{
-        box-shadow: -20px 0px 20px -23px #932324;
+        box-shadow: -20px 0px 20px -23px var(--details);
     }
     .block-wrapper:hover {
       transform: translateY(-2px);
@@ -384,7 +375,7 @@
     }
     .meta {
       font-size: 13px;
-      color: var(--details);
+      color: var(--morado);
       margin-bottom: 6px;
       font-style: italic;
       font-weight: 400;
@@ -393,7 +384,6 @@
     .two-columns {
       display: flex;
       gap: 48px;
-      margin-top: 12px;
     }
 
     .skills-list {
@@ -421,8 +411,8 @@
     .languages {
       display: flex;
       gap: 48px;
-      margin-top: 12px;
       flex-wrap: wrap;
+      margin-top: 15px;
     }
 
     .languages p {
@@ -520,17 +510,17 @@
 </head>
 <body>
   <!-- Grid de fondo -->
-  <div id="site-grid-bg">
-    <svg class="grid-svg" xmlns="http://www.w3.org/2000/svg">
+  <div id="site-grid-bg" aria-hidden="true">
+    <svg aria-hidden="true" class="grid-svg">
       <defs>
-        <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-          <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" stroke-width="0.5"/>
+        <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse" x="-1" y="-1">
+          <path d="M.5 30V.5H30" fill="none" stroke="currentColor" stroke-width="1"></path>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#grid)"/>
+      <rect width="100%" height="100%" stroke-width="0" fill="url(#grid-pattern)"></rect>
     </svg>
   </div>
-  <div class="bg-vignette"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
 
   <main class="cv">
     <!-- CABECERA -->
@@ -562,8 +552,8 @@
         <div class="block-wrapper">
           <div class="icon-circle">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="6" r="4" stroke="#897d71" stroke-width="1.5"></circle>
-              <path d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634" stroke="#897d71" stroke-width="1.5" stroke-linecap="round"></path> </g>
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="6" r="4" stroke="var(--accentColor)" stroke-width="1.5"></circle>
+              <path d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634" stroke="var(--accentColor)" stroke-width="1.5" stroke-linecap="round"></path> </g>
             </svg>
           </div>
           <article class="block">
@@ -578,9 +568,9 @@
         <!-- EXPERIENCIA -->
         <div class="block-wrapper">
           <div class="icon-circle">
-            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#897d71;} </style> <g> <path class="st0" d="M443.969,137.219H68.031C30.469,137.219,0,167.672,0,205.25v215.937c0,37.578,30.469,68.032,68.031,68.032 h375.938c37.578,0,68.031-30.454,68.031-68.032V205.25C512,167.672,481.546,137.219,443.969,137.219z M480,244.929h-78.657v32H480 v144.258c0,19.867-16.164,36.032-36.031,36.032H68.031C48.164,457.219,32,441.054,32,421.187V276.929h78.672v-32H32V205.25 c0-19.867,16.164-36.031,36.031-36.031h375.938c19.867,0,36.031,16.164,36.031,36.031V244.929z"></path> <path class="st0" d="M215.562,71.531c10.398-10.375,24.594-16.742,40.438-16.75c15.843,0.007,30.046,6.374,40.445,16.75 c10.375,10.406,16.75,24.602,16.758,40.454h32C345.195,62.703,305.266,22.788,256,22.781c-49.266,0.007-89.18,39.922-89.188,89.203 h32C198.82,96.124,205.187,81.929,215.562,71.531z"></path> <rect x="329.343" y="232.452" class="st0" width="48" height="64"></rect> <rect x="206.672" y="244.929" class="st0" width="98.671" height="32"></rect> <rect x="134.672" y="232.452" class="st0" width="48" height="64"></rect> </g> </g></svg>
+            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:var(--accentColor);} </style> <g> <path class="st0" d="M443.969,137.219H68.031C30.469,137.219,0,167.672,0,205.25v215.937c0,37.578,30.469,68.032,68.031,68.032 h375.938c37.578,0,68.031-30.454,68.031-68.032V205.25C512,167.672,481.546,137.219,443.969,137.219z M480,244.929h-78.657v32H480 v144.258c0,19.867-16.164,36.032-36.031,36.032H68.031C48.164,457.219,32,441.054,32,421.187V276.929h78.672v-32H32V205.25 c0-19.867,16.164-36.031,36.031-36.031h375.938c19.867,0,36.031,16.164,36.031,36.031V244.929z"></path> <path class="st0" d="M215.562,71.531c10.398-10.375,24.594-16.742,40.438-16.75c15.843,0.007,30.046,6.374,40.445,16.75 c10.375,10.406,16.75,24.602,16.758,40.454h32C345.195,62.703,305.266,22.788,256,22.781c-49.266,0.007-89.18,39.922-89.188,89.203 h32C198.82,96.124,205.187,81.929,215.562,71.531z"></path> <rect x="329.343" y="232.452" class="st0" width="48" height="64"></rect> <rect x="206.672" y="244.929" class="st0" width="98.671" height="32"></rect> <rect x="134.672" y="232.452" class="st0" width="48" height="64"></rect> </g> </g></svg>
           </div>
-          <article class="block">
+          <article class="block" id="block-experience">
             <div>
                 <h3>Prácticas de Desarrollo de Software (1er año DAM)</h3>
                 <p class="meta">Universidad Politécnica de Valencia (UPV) | Junio 2025 - 100 horas </p>
@@ -624,11 +614,9 @@
         <!-- FORMACIÓN -->
         <div class="block-wrapper">
           <div class="icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3.09155 6.63659L9.78267 3.49965C11.2037 2.83345 12.7961 2.83345 14.2171 3.49965L20.9083 6.63664C22.3638 7.31899 22.3638 9.68105 20.9083 10.3634L14.2172 13.5003C12.7962 14.1665 11.2038 14.1665 9.78275 13.5003L4.99995 11.2581" stroke="#897d71" stroke-width="1.5" stroke-linecap="round"></path> <path d="M2.5 15V12.1376C2.5 10.8584 2.5 10.2188 2.83032 9.71781C3.16064 9.21687 3.74853 8.96492 4.92432 8.461L6 8" stroke="#897d71" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 21C10.204 21 7.8537 19.8787 6.38533 19.0656C5.5035 18.5772 5 17.6334 5 16.6254V11.5M19 11.5V16.6254C19 17.6334 18.4965 18.5772 17.6147 19.0656C17.0843 19.3593 16.4388 19.6932 15.7459 20" stroke="#897d71" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3.09155 6.63659L9.78267 3.49965C11.2037 2.83345 12.7961 2.83345 14.2171 3.49965L20.9083 6.63664C22.3638 7.31899 22.3638 9.68105 20.9083 10.3634L14.2172 13.5003C12.7962 14.1665 11.2038 14.1665 9.78275 13.5003L4.99995 11.2581" stroke="var(--accentColor)" stroke-width="1.5" stroke-linecap="round"></path> <path d="M2.5 15V12.1376C2.5 10.8584 2.5 10.2188 2.83032 9.71781C3.16064 9.21687 3.74853 8.96492 4.92432 8.461L6 8" stroke="var(--accentColor)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 21C10.204 21 7.8537 19.8787 6.38533 19.0656C5.5035 18.5772 5 17.6334 5 16.6254V11.5M19 11.5V16.6254C19 17.6334 18.4965 18.5772 17.6147 19.0656C17.0843 19.3593 16.4388 19.6932 15.7459 20" stroke="var(--accentColor)" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
           </div>
           <article class="block">
-            <h2>Formación académica</h2>
-
             <div>
               <h3>Técnico Superior en Desarrollo de Aplicaciones Multiplataforma</h3>
               <p class="meta">2º año · En curso · TAME Centro de Formación</p>
@@ -649,10 +637,9 @@
         <!-- HABILIDADES -->
         <div class="block-wrapper">
           <div class="icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 20H16M12 20H8M12 20V16M12 16H5C4.44772 16 4 15.5523 4 15V6C4 5.44771 4.44772 5 5 5H19C19.5523 5 20 5.44772 20 6M12 16H19C19.5523 16 20 15.5523 20 15V10" stroke="#897d71" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 20H16M12 20H8M12 20V16M12 16H5C4.44772 16 4 15.5523 4 15V6C4 5.44771 4.44772 5 5 5H19C19.5523 5 20 5.44772 20 6M12 16H19C19.5523 16 20 15.5523 20 15V10" stroke="var(--accentColor)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </div>
           <article class="block">
-            <h2>Habilidades</h2>
             <div class="two-columns">
               <div>
                 <ul class="skills-list">
@@ -664,10 +651,12 @@
                 </ul>
               </div>
               <div>
-                <p>Desarrollo integral de aplicaciones multiplataforma con prácticas ágiles.</p>
-                <p>Capacidad de trabajo en equipo e individual, con enfoque en alcanzar objetivos.</p>
-                <p>Proactividad: iniciativa para proponer soluciones innovadoras.</p>
-                <p>Habilidad para gestionar múltiples tareas simultáneamente, priorizando calidad y plazos.</p>
+                <ul class="skills-list">
+                  <li>Desarrollo integral de aplicaciones multiplataforma con prácticas ágiles.</li>
+                  <li>Capacidad de trabajo en equipo e individual, con enfoque en alcanzar objetivos.</li>
+                  <li>Proactividad: iniciativa para proponer soluciones innovadoras.</li>
+                  <li>Habilidad para gestionar múltiples tareas simultáneamente, priorizando calidad y plazos.</li>
+                </ul>
               </div>
             </div>
           </article>
@@ -676,10 +665,9 @@
         <!-- IDIOMAS -->
         <div class="block-wrapper">
           <div class="icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5Z" stroke="#897d71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12Z" stroke="#897d71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19Z" stroke="#897d71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5Z" stroke="var(--accentColor)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12Z" stroke="var(--accentColor)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19Z" stroke="var(--accentColor)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </div>
           <article class="block">
-            <h2>Idiomas</h2>
             <div class="languages">
               <p><span class="language-label">Castellano:</span> Nativo</p>
               <p><span class="language-label">Valenciano:</span> Nivel alto</p>
